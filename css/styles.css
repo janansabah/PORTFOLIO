@@ -93,6 +93,8 @@ a:hover {
   margin: 0 1em;
 }
 
+
+
 .profile .location {
   margin-top: 10px;
   font-size: 0.9em;
@@ -159,6 +161,7 @@ a:hover {
 .link .image-float .image img {
   width: 60px;
   height: 60px;
+  border-radius: 50%;
 }
 
 .link .arrow {
@@ -220,7 +223,6 @@ a.link:hover {
 }
 
 .instagram {
-  background-color: #c13584;
   box-shadow: 8px 8px 14px -8px #c13584;
 }
 .kurd {
@@ -245,7 +247,6 @@ a.link:hover {
 }
 
 .medium {
-  background-color: #000000;
   box-shadow: 8px 8px 14px -8px #000000;
 }
 
