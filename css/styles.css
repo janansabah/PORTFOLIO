@@ -86,12 +86,26 @@ a:hover {
   font-size: 1.6em;
 }
 
-.profile img {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  margin: 0 1em;
+@media (max-width: 768px) { /* Adjust breakpoint as needed */
+  .profile img {
+    width: 170px; /* Smaller size for mobile */
+    height: 170px;
+  }
+  .profile h1 {
+    font-size: 1.3em;
+  }
 }
+
+@media (max-width: 480px) { /* Even smaller for extra small screens */
+  .profile img {
+    width: 170px; /* Further adjustment for very small screens */
+    height: 170px;
+  }
+  .profile h1 {
+    font-size: 1.3em;
+  }
+}
+
 
 .profile .location {
   margin-top: 10px;
