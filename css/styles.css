@@ -480,3 +480,57 @@
           height: 150px;
         }
       }
+
+
+      .cv-section {
+  padding: 80px 0;
+  text-align: center;
+}
+
+.cv-text {
+  margin: 15px 0 25px;
+  color: #555;
+  font-size: 16px;
+}
+
+.cv-btn {
+  display: inline-block;
+  padding: 14px 30px;
+  background: #ffffff;
+  color: #000000;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.cv-btn i {
+  margin-right: 8px;
+}
+
+.cv-btn:hover {
+  background: #0077B5;
+  transform: translateY(-2px);
+}
+
+
+.contact-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-icon svg {
+  width: 28px;
+  height: 28px;
+  fill: #fff;
+}
+
+/* Brand colors */
+.contact-icon.linkedin { background: #0077B5; }
+.contact-icon.signal   { background: #3A76F0; }
+.contact-icon.whatsapp { background: #25D366; }
+.contact-icon.email    { background: #D44638; }
