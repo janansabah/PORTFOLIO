@@ -1,37 +1,567 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Janan Sabah</title>
-    <meta name="description" content="Portfolio of Janan Sabah - Full-stack Web Developer, SEO Specialist, Physics Student, and Researcher">
-    <script src="https://kit.fontawesome.com/9b3bbb804d.js" crossorigin="anonymous"></script>
+    <title>Janan Sabah | Portfolio</title>
+    <meta name="description" content="An interactive visual presentation featuring Janan Sabah with animated particle effects and floral accents">
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="stylesheet" href="css/styles.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Noto+Kufi+Arabic:wght@100..900&display=swap" rel="stylesheet">
-  </head>
-  <body>
-  
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
+    <style>
+        /* CSS Variables for Maintainability */
+        :root {
+            --primary-gradient: linear-gradient(90deg, #38bdf8, #818cf8, #22d3ee, #a78bfa, #38bdf8);
+            --secondary-gradient: linear-gradient(135deg, #f472b6, #d946ef, #a855f7);
+            --background-dark: #0b1220;
+            --background-darker: #111827;
+            --accent-color: #38bdf8;
+            --accent-color-2: #818cf8;
+            --text-glow: rgba(56, 189, 248, 0.5);
+            --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Base Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Typography */
+        body {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            line-height: 1.6;
+            color: #fff;
+            height: 100vh;
+            overflow: hidden;
+            background: radial-gradient(ellipse at top, #111827, #0b1220, #070b15);
+            position: relative;
+        }
+
+        /* Canvas Layer */
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* Animated Background Gradient */
+        .animated-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: linear-gradient(45deg, 
+                rgba(17, 24, 39, 0.8) 0%, 
+                rgba(56, 189, 248, 0.1) 20%, 
+                rgba(129, 140, 248, 0.1) 40%, 
+                rgba(34, 211, 238, 0.1) 60%, 
+                rgba(167, 139, 250, 0.1) 80%, 
+                rgba(17, 24, 39, 0.8) 100%);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        /* Floral Decorative Elements */
+        .floral-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .floral-element {
+            position: absolute;
+            font-size: 3rem;
+            opacity: 0;
+            filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.4));
+            animation: float-animation 15s var(--transition-smooth) infinite;
+        }
+
+        .floral-element:nth-child(1) { top: 15%; left: 20%; animation-delay: 0s; font-size: 2.8rem; }
+        .floral-element:nth-child(2) { top: 65%; left: 15%; animation-delay: 1.5s; font-size: 3.2rem; }
+        .floral-element:nth-child(3) { top: 35%; left: 75%; animation-delay: 3s; font-size: 2.5rem; }
+        .floral-element:nth-child(4) { top: 75%; left: 60%; animation-delay: 4.5s; font-size: 3rem; }
+        .floral-element:nth-child(5) { top: 20%; left: 60%; animation-delay: 6s; font-size: 2.7rem; }
+        .floral-element:nth-child(6) { top: 80%; left: 25%; animation-delay: 7.5s; font-size: 3.5rem; }
+        .floral-element:nth-child(7) { top: 45%; left: 15%; animation-delay: 9s; font-size: 2.9rem; }
+        .floral-element:nth-child(8) { top: 10%; left: 80%; animation-delay: 10.5s; font-size: 3.1rem; }
+
+        /* Main Content Container */
+        .main-content {
+            position: relative;
+            z-index: 4;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        /* Name Styling */
+        .name-display {
+            font-size: clamp(2rem, 8vw, 5.5rem);
+            font-weight: 800;
+            letter-spacing: 3px;
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .gradient-text {
+            background: var(--primary-gradient);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-shift 4s ease infinite;
+            text-shadow: 0 0 40px var(--text-glow);
+            position: relative;
+            display: inline-block;
+        }
+
+        .gradient-text::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--primary-gradient);
+            background-size: 300% 300%;
+            border-radius: 2px;
+            animation: gradient-shift 4s ease infinite;
+            filter: blur(2px);
+            opacity: 0.7;
+        }
+
+        /* Subtitle */
+        .subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 300;
+            letter-spacing: 1px;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+            max-width: 600px;
+            line-height: 1.5;
+        }
+
+        /* Glassmorphism Card */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            padding: 2rem 3rem;
+            margin-top: 1rem;
+            max-width: 500px;
+            animation: cardFadeIn 1.5s ease-out 2.5s both;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            background: var(--secondary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .card-content {
+            font-weight: 300;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        /* Social Links */
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 3rem;
+            animation: fadeInUp 1s ease-out 3s both;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+            background: var(--primary-gradient);
+            box-shadow: 0 8px 25px rgba(56, 189, 248, 0.3);
+        }
+
+        /* Typing Cursor */
+        .typing-cursor {
+            width: 4px;
+            height: 1.2em;
+            background: var(--accent-color);
+            margin-left: 8px;
+            animation: cursor-blink 1s infinite, cursor-pulse 2s infinite;
+            border-radius: 2px;
+            box-shadow: 0 0 10px var(--accent-color);
+        }
+
+        /* Floating elements */
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .floating-element:nth-child(1) {
+            width: 40px;
+            height: 40px;
+            background: rgba(56, 189, 248, 0.2);
+            top: 20%;
+            left: 10%;
+            animation: float 20s infinite linear;
+        }
+
+        .floating-element:nth-child(2) {
+            width: 60px;
+            height: 60px;
+            background: rgba(129, 140, 248, 0.15);
+            bottom: 30%;
+            right: 15%;
+            animation: float 25s infinite linear reverse;
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            z-index: 5;
+            animation: fadeIn 1s ease-out 4s both;
+        }
+
+        .scroll-text {
+            font-size: 0.9rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            opacity: 0.7;
+        }
+
+        .scroll-arrow {
+            width: 30px;
+            height: 50px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .scroll-arrow::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 2px;
+            animation: scrollDown 2s infinite;
+        }
+
+        /* Animations */
+        @keyframes float-animation {
+            0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0; }
+            10% { opacity: 0.15; }
+            50% { transform: translateY(-40px) rotate(15deg) scale(1.05); opacity: 0.2; }
+            100% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0; }
+        }
+
+        @keyframes cursor-blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+
+        @keyframes cursor-pulse {
+            0%, 100% { box-shadow: 0 0 10px var(--accent-color); }
+            50% { box-shadow: 0 0 20px var(--accent-color); }
+        }
+
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-1000px) rotate(720deg); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes cardFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes scrollDown {
+            0% {
+                transform: translateX(-50%) translateY(0);
+                opacity: 0;
+            }
+            40% {
+                opacity: 1;
+            }
+            80% {
+                transform: translateX(-50%) translateY(20px);
+                opacity: 0;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        /* Page Fade-in */
+        body {
+            animation: pageFadeIn 1.5s ease-out;
+        }
+
+        @keyframes pageFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Reduced Motion Preference */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .floral-element {
+                font-size: 2rem;
+                opacity: 0.1;
+            }
+            
+            .name-display {
+                letter-spacing: 2px;
+                flex-direction: column;
+                white-space: normal;
+                text-align: center;
+            }
+            
+            .typing-cursor {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+            
+            .glass-card {
+                padding: 1.5rem;
+                margin: 1rem;
+            }
+            
+            .social-links {
+                gap: 1rem;
+            }
+            
+            .social-link {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+        }
+
+         /* Hero Section */
+      .hero {
+        padding: 80px 0 60px;
+        text-align: center;
+      }
+
+      .profile-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .profile-img {
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 5px solid var(--primary);
+        box-shadow: var(--shadow);
+        margin-bottom: 0x;
+      }
+
+    .cv-section {
+  padding: 40px 0;
+  text-align: center;
+}
+
+.cv-text {
+  margin: 15px 0 25px;
+  color: #555;
+  font-size: 16px;
+}
+
+.cv-btn {
+  display: inline-block;
+  padding: 14px 30px;
+  background: #ffffff;
+  color: #000000;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+
+
+.cv-btn:hover {
+  background: #0077B5;
+  transform: translateY(-2px);
+}
+    </style>
+</head>
+
+<body>
+    <!-- Animated Background Gradient -->
+    <div class="animated-bg"></div>
+
+    <!-- Particle Background -->
+    <canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+    <!-- Floating Elements -->
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+
+    <!-- Floral Decorative Elements -->
+   
+
+    <!-- Main Content -->
+    <main class="main-content">
+        
+        <section id="home" class="hero">
       <div class="container">
         <div class="profile-container">
           <img src="images/janan.jpg" alt="Janan Sabah" class="profile-img">
-          <h1>Janan Sabah</h1>
-          <div class="location">
-            <i class="fas fa-map-marker-alt"></i> Kurdistan - Iraq
           </div>
-          <p class="tagline">Full-stack Developer • SEO Specialist • Researcher</p>
           
        
         </div>
       </div>
     </section>
+        <h1 class="name-display">
+            <span class="gradient-text" id="animated-name"></span>
+        </h1>
+        
+        <p class="subtitle">Creative Developer & Writer</p>
+        
+        <div class="glass-card">
+            <h3 class="card-title">About Me</h3>
+            <p class="card-content">I create immersive digital experiences that blend aesthetics with functionality. Passionate about clean code, innovative design, and pushing the boundaries of web interactivity.</p>
+        </div>
+          <!-- Download CV Section -->
 
-      <!-- Download CV Section -->
-<section id="cv" class="cv-section">
+        <div class="social-links">
+            <a href="mailto:janansabah83@gmail.com" class="social-link" aria-label="Gmail">
+    <i class="fas fa-envelope"></i>
+</a>
+
+    <a href="https://github.com/janansabah" class="social-link" aria-label="GitHub">
+        <i class="fab fa-github"></i>
+    </a>
+    <a href="https://www.linkedin.com/in/janan-sabah-8b6238299" class="social-link" aria-label="LinkedIn">
+        <i class="fab fa-linkedin"></i>
+    </a>
+    
+   
+    <a href="https://wa.me/message/C3GUMMYBPMRQD1" class="social-link" aria-label="WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    <a href="https://signal.me/#eu/bb3F7mowtOaXKGCikUH9yxgLS9irKW2aMrLUGljv55uYyLArg3ZPw6vDNenOyd2k" class="social-link" aria-label="Signal">
+    <img src="https://cdn.simpleicons.org/signal/3A76F0" alt="Signal" width="20" height="20">
+</a>
+
+</div>
+<section id="cv" class="cv-section" style="margin-top: -30px;">
   <div class="container">
    
     <a href="file/cv janan.pdf" download class="cv-btn">
@@ -40,121 +570,290 @@
   </div>
 </section>
 
-   <section id="contact" class="contact">
-  <div class="container">
-    <h2 class="section-title">Get In Touch</h2>
-
-    <div class="contact-grid">
-
-      <!-- LinkedIn -->
-      <div class="contact-card fade-in">
-        <div class="contact-icon linkedin">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.22 8h4.56v16H.22V8zM8.34 8h4.37v2.2h.06c.61-1.16 2.1-2.38 4.32-2.38 4.62 0 5.47 3.04 5.47 6.99V24h-4.56v-6.56c0-1.56-.03-3.56-2.17-3.56-2.17 0-2.5 1.7-2.5 3.45V24H8.34V8z"/>
-          </svg>
-        </div>
-        <div class="contact-info">
-          <h3 class="contact-title">LinkedIn</h3>
-          <p class="contact-detail">Janan Sabah</p>
-          <a href="https://www.linkedin.com/in/janan-sabah-8b6238299" target="_blank" class="project-link">
-            Connect →
-          </a>
-        </div>
-      </div>
-
-      <!-- Signal -->
-      <div class="contact-card fade-in" style="animation-delay:0.1s">
-        <div class="contact-icon signal">
-          <svg viewBox="0 0 24 24">
-            <path d="M12 2C6.48 2 2 6.14 2 11.25c0 2.93 1.56 5.54 4 7.23V22l3.45-1.9c.8.22 1.65.34 2.55.34 5.52 0 10-4.14 10-9.25S17.52 2 12 2z"/>
-          </svg>
-        </div>
-        <div class="contact-info">
-          <h3 class="contact-title">Signal</h3>
-          <p class="contact-detail">@Janan.10</p>
-          <a href="https://signal.me/#eu/bb3F7mowtOaXKGCikUH9yxgLS9irKW2aMrLUGljv55uYyLArg3ZPw6vDNenOyd2k" target="_blank" class="project-link">
-            Message →
-          </a>
-        </div>
-      </div>
-
-      <!-- WhatsApp -->
-      <div class="contact-card fade-in" style="animation-delay:0.2s">
-        <div class="contact-icon whatsapp">
-          <svg viewBox="0 0 24 24">
-            <path d="M12 2C6.48 2 2 6.14 2 11.25c0 1.98.62 3.82 1.69 5.36L2 22l5.7-1.63c1.41.78 3.04 1.22 4.3 1.22 5.52 0 10-4.14 10-9.25S17.52 2 12 2z"/>
-          </svg>
-        </div>
-        <div class="contact-info">
-          <h3 class="contact-title">WhatsApp</h3>
-          <p class="contact-detail">Janan Sabah</p>
-          <a href="https://wa.me/message/C3GUMMYBPMRQD1" target="_blank" class="project-link">
-            Chat →
-          </a>
-        </div>
-      </div>
-
-      <!-- Email -->
-      <div class="contact-card fade-in" style="animation-delay:0.3s">
-        <div class="contact-icon email">
-          <svg viewBox="0 0 24 24">
-            <path d="M2 4h20v16H2V4zm10 7L4 6v12h16V6l-8 5z"/>
-          </svg>
-        </div>
-        <div class="contact-info">
-          <h3 class="contact-title">Email</h3>
-          <p class="contact-detail">janansabah83@gmail.com</p>
-          <a href="mailto:janansabah83@gmail.com" class="project-link">
-            Email Me →
-          </a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-
-  
-
-    <!-- Footer -->
-    <footer>
-      <div class="container">
-        <p class="copyright">&copy; 2024 Janan Sabah. All rights reserved.</p>
-      </div>
-    </footer>
+        
+        
+    </main>
 
     <script>
-      // Smooth scrolling for navigation links
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-          e.preventDefault();
-          document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-          });
-        });
-      });
+        (function() {
+            'use strict';
 
-      // Animation on scroll
-      const fadeElements = document.querySelectorAll('.fade-in');
-      
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.style.opacity = 1;
-            entry.target.style.transform = 'translateY(0)';
-          }
-        });
-      }, {
-        threshold: 0.1
-      });
-      
-      fadeElements.forEach(element => {
-        element.style.opacity = 0;
-        element.style.transform = 'translateY(20px)';
-        element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(element);
-      });
+            // Configuration
+            const CONFIG = {
+                TYPING: {
+                    TEXT: 'Janan Sabah',
+                    SPEED: 250, // Faster typing speed
+                    ELEMENT_ID: 'animated-name'
+                },
+                PARTICLES: {
+                    COUNT: 120, // More particles
+                    MIN_RADIUS: 1,
+                    MAX_RADIUS: 4,
+                    SPEED: 0.8,
+                    COLOR: 'rgba(56,189,248,0.7)',
+                    CONNECTION_DISTANCE: 100,
+                    CONNECTION_COLOR: 'rgba(56,189,248,0.2)'
+                }
+            };
+
+            // DOM Elements
+            const nameElement = document.getElementById(CONFIG.TYPING.ELEMENT_ID);
+            const canvas = document.getElementById('particle-canvas');
+            const ctx = canvas.getContext('2d');
+
+            // State Management
+            let animationFrameId;
+            let particles = [];
+            let mouse = { x: 0, y: 0, radius: 100 };
+            let canvasDimensions = { width: 0, height: 0 };
+
+            // Typing Effect with character-by-character animation
+            function initTypingEffect() {
+                const text = CONFIG.TYPING.TEXT;
+                let index = 0;
+                let isDeleting = false;
+                let typingSpeed = CONFIG.TYPING.SPEED;
+
+                function typeCharacter() {
+                    const currentText = text.substring(0, index);
+                    nameElement.innerHTML = currentText;
+                    
+                    if (!isDeleting && index < text.length) {
+                        index++;
+                        typingSpeed = CONFIG.TYPING.SPEED;
+                    } else if (isDeleting && index > 0) {
+                        index--;
+                        typingSpeed = CONFIG.TYPING.SPEED / 2;
+                    }
+                    
+                    // Change direction
+                    if (!isDeleting && index === text.length) {
+                        isDeleting = false;
+                        typingSpeed = 2000; // Pause at the end
+                    } else if (isDeleting && index === 0) {
+                        isDeleting = false;
+                        typingSpeed = 0; // Pause before restarting
+                    }
+                    
+                    setTimeout(typeCharacter, typingSpeed);
+                }
+
+                // Start typing after a short delay
+                setTimeout(typeCharacter, 0);
+            }
+
+            // Particle System
+            class Particle {
+                constructor(x, y) {
+                    this.x = x;
+                    this.y = y;
+                    this.radius = Math.random() * 
+                        (CONFIG.PARTICLES.MAX_RADIUS - CONFIG.PARTICLES.MIN_RADIUS) + 
+                        CONFIG.PARTICLES.MIN_RADIUS;
+                    this.velocityX = (Math.random() - 0.5) * CONFIG.PARTICLES.SPEED;
+                    this.velocityY = (Math.random() - 0.5) * CONFIG.PARTICLES.SPEED;
+                    this.color = CONFIG.PARTICLES.COLOR;
+                    this.originalColor = this.color;
+                    this.mouseInteraction = false;
+                }
+
+                update() {
+                    // Move particle
+                    this.x += this.velocityX;
+                    this.y += this.velocityY;
+
+                    // Boundary collision with bounce
+                    if (this.x <= 0 || this.x >= canvasDimensions.width) {
+                        this.velocityX *= -1;
+                        this.x = this.x <= 0 ? 1 : canvasDimensions.width - 1;
+                    }
+                    if (this.y <= 0 || this.y >= canvasDimensions.height) {
+                        this.velocityY *= -1;
+                        this.y = this.y <= 0 ? 1 : canvasDimensions.height - 1;
+                    }
+
+                    // Mouse interaction
+                    const dx = mouse.x - this.x;
+                    const dy = mouse.y - this.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < mouse.radius) {
+                        this.mouseInteraction = true;
+                        // Move away from mouse
+                        const force = (mouse.radius - distance) / mouse.radius;
+                        this.x -= dx * force * 0.05;
+                        this.y -= dy * force * 0.05;
+                        
+                        // Change color when near mouse
+                        this.color = 'rgba(255, 255, 255, 0.9)';
+                    } else {
+                        this.mouseInteraction = false;
+                        this.color = this.originalColor;
+                    }
+                }
+
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color;
+                    ctx.fill();
+                    
+                    // Add glow effect for particles near mouse
+                    if (this.mouseInteraction) {
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.radius * 2, 0, Math.PI * 2);
+                        ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+                        ctx.fill();
+                    }
+                }
+            }
+
+            // Draw connections between particles
+            function drawConnections() {
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (distance < CONFIG.PARTICLES.CONNECTION_DISTANCE) {
+                            // Calculate opacity based on distance
+                            const opacity = 1 - (distance / CONFIG.PARTICLES.CONNECTION_DISTANCE);
+                            ctx.beginPath();
+                            ctx.strokeStyle = `rgba(56, 189, 248, ${opacity * 0.3})`;
+                            ctx.lineWidth = 1;
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            // Canvas Management
+            function initCanvas() {
+                updateCanvasSize();
+                window.addEventListener('resize', handleResize);
+                canvas.addEventListener('mousemove', handleMouseMove);
+                
+                // Initialize particles
+                particles = Array.from(
+                    { length: CONFIG.PARTICLES.COUNT }, 
+                    () => new Particle(
+                        Math.random() * canvasDimensions.width,
+                        Math.random() * canvasDimensions.height
+                    )
+                );
+            }
+
+            function updateCanvasSize() {
+                canvasDimensions.width = canvas.width = window.innerWidth;
+                canvasDimensions.height = canvas.height = window.innerHeight;
+            }
+
+            function handleResize() {
+                updateCanvasSize();
+                // Reset particles on resize for better distribution
+                particles = particles.map(() => new Particle(
+                    Math.random() * canvasDimensions.width,
+                    Math.random() * canvasDimensions.height
+                ));
+            }
+
+            function handleMouseMove(e) {
+                mouse.x = e.clientX;
+                mouse.y = e.clientY;
+            }
+
+            // Animation Loop
+            function animate() {
+                // Clear with fade effect for trails
+                ctx.fillStyle = 'rgba(11, 18, 32, 0.05)';
+                ctx.fillRect(0, 0, canvasDimensions.width, canvasDimensions.height);
+                
+                // Update and draw particles
+                particles.forEach(particle => {
+                    particle.update();
+                    particle.draw();
+                });
+                
+                // Draw connections
+                drawConnections();
+                
+                animationFrameId = requestAnimationFrame(animate);
+            }
+
+            // Interactive elements
+            function initInteractivity() {
+                // Add click effect for social links
+                const socialLinks = document.querySelectorAll('.social-link');
+                socialLinks.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        
+                        // Create ripple effect
+                        const ripple = document.createElement('div');
+                        ripple.style.position = 'absolute';
+                        ripple.style.borderRadius = '50%';
+                        ripple.style.background = 'rgba(255, 255, 255, 0.3)';
+                        ripple.style.transform = 'translate(-50%, -50%) scale(0)';
+                        ripple.style.animation = 'ripple 0.6s linear';
+                        ripple.style.width = '100px';
+                        ripple.style.height = '100px';
+                        
+                        const rect = this.getBoundingClientRect();
+                        ripple.style.left = `${rect.left + rect.width / 2}px`;
+                        ripple.style.top = `${rect.top + rect.height / 2}px`;
+                        
+                        document.body.appendChild(ripple);
+                        
+                        // Remove ripple after animation
+                        setTimeout(() => {
+                            ripple.remove();
+                        }, 600);
+                    });
+                });
+
+                // Add CSS for ripple animation
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes ripple {
+                        to {
+                            transform: translate(-50%, -50%) scale(4);
+                            opacity: 0;
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+
+            // Initialization
+            function init() {
+                initTypingEffect();
+                initCanvas();
+                initInteractivity();
+                animate();
+            }
+
+            // Cleanup
+            function cleanup() {
+                if (animationFrameId) {
+                    cancelAnimationFrame(animationFrameId);
+                }
+                window.removeEventListener('resize', handleResize);
+                canvas.removeEventListener('mousemove', handleMouseMove);
+            }
+
+            // Initialize on DOMContentLoaded
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+
+            // Cleanup on page unload
+            window.addEventListener('beforeunload', cleanup);
+        })();
     </script>
-  </body>
+</body>
 </html>
