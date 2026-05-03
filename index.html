@@ -1,160 +1,620 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Janan Sabah</title>
-    <meta name="description" content="Portfolio of Janan Sabah - Full-stack Web Developer, SEO Specialist, Physics Student, and Researcher">
-    <script src="https://kit.fontawesome.com/9b3bbb804d.js" crossorigin="anonymous"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Noto+Kufi+Arabic:wght@100..900&display=swap" rel="stylesheet">
-  </head>
-  <body>
-  
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Janan Sabah Ahmed — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg:        #f5f3ef;
+      --bg2:       #ffffff;
+      --bg3:       #edeae4;
+      --navy:      #0f1f3d;
+      --navy2:     #1a3260;
+      --gold:      #b8922a;
+      --gold2:     #d4ab45;
+      --gold-lt:   #f5e9cc;
+      --text:      #1a1a2e;
+      --muted:     #6b7280;
+      --border:    #d9d4c7;
+      --white:     #ffffff;
+      --shadow:    0 4px 24px rgba(15,31,61,0.08);
+      --shadow-lg: 0 12px 48px rgba(15,31,61,0.14);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;overflow-x:hidden}
+    ::-webkit-scrollbar{width:4px}
+    ::-webkit-scrollbar-track{background:var(--bg)}
+    ::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px}
+    a{text-decoration:none;color:inherit}
+    .container{max-width:1140px;margin:0 auto;padding:0 2rem}
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease}
+    .reveal.visible{opacity:1;transform:none}
+    .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-      <div class="container">
-        <div class="profile-container">
-          <img src="images/janan.jpg" alt="Janan Sabah" class="profile-img">
-          <h1>Janan Sabah</h1>
-          <div class="location">
-            <i class="fas fa-map-marker-alt"></i> Kurdistan - Iraq
-          </div>
-          <p class="tagline">Full-stack Developer • SEO Specialist • Researcher</p>
-          
-       
-        </div>
+    /* NAV */
+    #navbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(245,243,239,0.96);backdrop-filter:blur(16px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+    #navbar.scrolled{border-color:var(--border);box-shadow:0 2px 20px rgba(15,31,61,0.07)}
+    .nav-inner{max-width:1140px;margin:0 auto;padding:0 2rem;height:68px;display:flex;align-items:center;justify-content:space-between}
+    .nav-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--navy)}
+    .nav-logo span{color:var(--gold)}
+    .nav-links{display:flex;align-items:center;gap:2rem;list-style:none}
+    .nav-links a{font-size:0.78rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);transition:color .2s;position:relative}
+    .nav-links a::after{content:'';position:absolute;bottom:-5px;left:0;width:0;height:2px;background:var(--gold);border-radius:1px;transition:width .3s}
+    .nav-links a:hover,.nav-links a.active{color:var(--navy)}
+    .nav-links a:hover::after,.nav-links a.active::after{width:100%}
+    .nav-cta{padding:.5rem 1.2rem;background:var(--navy);color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:2px;transition:background .2s}
+    .nav-cta:hover{background:var(--navy2)}
+    .hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:34px;height:34px;cursor:pointer;background:none;border:none;padding:3px}
+    .hamburger span{display:block;height:2px;background:var(--navy);border-radius:2px;transition:transform .3s,opacity .3s,width .3s}
+    .hamburger span:nth-child(2){width:70%}
+    .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .hamburger.open span:nth-child(2){opacity:0;width:0}
+    .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+    .mobile-menu{display:none;position:fixed;top:68px;left:0;right:0;bottom:0;background:rgba(245,243,239,.98);backdrop-filter:blur(16px);flex-direction:column;align-items:center;justify-content:center;gap:2.2rem;z-index:999;opacity:0;transform:translateY(-8px);transition:opacity .3s,transform .3s;pointer-events:none}
+    .mobile-menu.open{opacity:1;transform:none;pointer-events:all}
+    .mobile-menu a{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--navy);transition:color .2s}
+    .mobile-menu a:hover{color:var(--gold)}
+    .mobile-menu .mob-cta{margin-top:.5rem;padding:.85rem 2.5rem;background:var(--navy);color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:.76rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:2px}
+
+    /* HERO */
+    #hero{min-height:100vh;padding-top:68px;background:var(--bg);position:relative;overflow:hidden;display:flex;align-items:center}
+    .hero-orb{position:absolute;right:-150px;top:-80px;width:650px;height:650px;border-radius:50%;background:radial-gradient(circle at 40% 40%,rgba(184,146,42,.1),transparent 68%);pointer-events:none}
+    .hero-lines{position:absolute;inset:0;background-image:repeating-linear-gradient(90deg,transparent,transparent 119px,rgba(15,31,61,.03) 119px,rgba(15,31,61,.03) 120px);pointer-events:none}
+    .hero-inner{position:relative;z-index:1;width:100%;max-width:1140px;margin:0 auto;padding:5rem 2rem 4rem;display:grid;grid-template-columns:1fr auto;gap:4rem;align-items:center}
+    .hero-badge{display:inline-flex;align-items:center;gap:.55rem;padding:.38rem 1rem;background:var(--gold-lt);border:1px solid rgba(184,146,42,.3);border-radius:100px;font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:1.7rem;opacity:0;animation:fadeUp .7s .2s forwards}
+    .hero-badge::before{content:'●';font-size:.45rem}
+    .hero-name{font-family:'Playfair Display',serif;font-size:clamp(2.6rem,5.2vw,4.8rem);font-weight:900;line-height:1.06;color:var(--navy);margin-bottom:1rem;opacity:0;animation:fadeUp .7s .35s forwards}
+    .hero-name .gold{color:var(--gold)}
+    .hero-pills{display:flex;flex-wrap:wrap;gap:.55rem;margin-bottom:1.5rem;opacity:0;animation:fadeUp .7s .5s forwards}
+    .pill{padding:.32rem .85rem;border:1px solid var(--border);font-size:.7rem;font-weight:600;letter-spacing:.04em;color:var(--navy);border-radius:2px;background:var(--white)}
+    .hero-desc{font-size:.95rem;line-height:1.85;color:var(--muted);max-width:470px;margin-bottom:2.4rem;opacity:0;animation:fadeUp .7s .65s forwards}
+    .hero-btns{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:fadeUp .7s .8s forwards}
+    .btn-navy{display:inline-flex;align-items:center;gap:.45rem;padding:.82rem 1.9rem;background:var(--navy);color:#fff;font-size:.76rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:2px;border:2px solid var(--navy);transition:background .2s,color .2s,transform .2s}
+    .btn-navy:hover{background:transparent;color:var(--navy);transform:translateY(-2px)}
+    .btn-ghost{display:inline-flex;align-items:center;gap:.45rem;padding:.82rem 1.9rem;background:transparent;color:var(--navy);font-size:.76rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:2px solid var(--border);border-radius:2px;transition:border-color .2s,transform .2s}
+    .btn-ghost:hover{border-color:var(--navy);transform:translateY(-2px)}
+    .hero-stats{display:flex;gap:2.5rem;margin-top:2.8rem;padding-top:2rem;border-top:1px solid var(--border);opacity:0;animation:fadeUp .7s 1s forwards}
+    .hstat-num{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:700;color:var(--navy)}
+    .hstat-lbl{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-top:.15rem}
+
+    /* Photo */
+    .hero-photo{opacity:0;animation:fadeIn .9s .5s forwards;flex-shrink:0}
+    .photo-card{position:relative;width:310px;border-radius:3px;overflow:visible}
+    .photo-frame{position:relative;width:310px;border-radius:3px;overflow:hidden;box-shadow:var(--shadow-lg)}
+    .photo-frame::before{content:'';position:absolute;inset:0;border:3px solid var(--gold);border-radius:3px;z-index:2;pointer-events:none}
+    .photo-frame img{width:100%;height:390px;object-fit:cover;display:block}
+    .photo-placeholder{width:100%;height:390px;background:linear-gradient(145deg,var(--bg3),var(--border));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.9rem;color:var(--muted);text-align:center;padding:1.5rem}
+    .photo-placeholder svg{opacity:.35}
+    .photo-placeholder p{font-size:.72rem;line-height:1.65;max-width:170px;opacity:.7}
+    .photo-placeholder strong{color:var(--navy)}
+    .photo-badge{position:absolute;bottom:1.2rem;left:-1.8rem;background:#fff;padding:.75rem 1.1rem;box-shadow:var(--shadow-lg);border-radius:2px;border-left:3px solid var(--gold);z-index:3}
+    .pb-title{font-size:.68rem;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.08em}
+    .pb-sub{font-size:.62rem;color:var(--muted);margin-top:.12rem}
+    .photo-deco-box{position:absolute;bottom:-18px;right:-18px;width:110px;height:110px;border:2px solid rgba(184,146,42,.22);border-radius:3px;z-index:-1}
+
+    /* SECTIONS */
+    section{padding:6rem 0}
+    .sec-tag{display:inline-flex;align-items:center;gap:.6rem;font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem}
+    .sec-tag::before{content:'';display:block;width:26px;height:2px;background:var(--gold);border-radius:1px}
+    .sec-title{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,3.2vw,2.6rem);font-weight:700;color:var(--navy);line-height:1.15}
+    .sec-title em{font-style:italic;color:var(--gold)}
+
+    /* ABOUT */
+    #about{background:var(--white)}
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+    .about-text p{font-size:.9rem;line-height:1.9;color:var(--muted);margin-bottom:1rem}
+    .about-text p strong{color:var(--text);font-weight:600}
+    .info-table{margin-top:1.8rem;border-top:1px solid var(--border)}
+    .info-row{display:flex;gap:1.2rem;padding:.75rem 0;border-bottom:1px solid var(--border);font-size:.8rem}
+    .ik{font-weight:700;color:var(--navy);min-width:82px;text-transform:uppercase;letter-spacing:.05em;font-size:.68rem}
+    .iv{color:var(--muted)}
+    .bars{display:flex;flex-direction:column;gap:1.5rem}
+    .bar-head{display:flex;justify-content:space-between;margin-bottom:.45rem}
+    .bn{font-size:.76rem;font-weight:600;color:var(--navy)}
+    .bp{font-size:.7rem;color:var(--gold);font-weight:700}
+    .bar-track{height:4px;background:var(--bg3);border-radius:2px;overflow:hidden}
+    .bar-fill{height:100%;width:0;background:linear-gradient(90deg,var(--navy),var(--gold));border-radius:2px;transition:width 1.3s cubic-bezier(.4,0,.2,1)}
+
+    /* EXPERIENCE */
+    #experience{background:var(--bg)}
+    .exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.8rem}
+    .exp-card{background:var(--white);border:1px solid var(--border);padding:2.4rem;border-radius:3px;position:relative;overflow:hidden;transition:box-shadow .3s,transform .3s,border-color .3s}
+    .exp-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold);transform:scaleY(0);transform-origin:top;transition:transform .4s}
+    .exp-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-4px);border-color:transparent}
+    .exp-card:hover::before{transform:scaleY(1)}
+    .exp-period{display:inline-flex;align-items:center;gap:.4rem;font-size:.66rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);padding:.28rem .75rem;background:var(--gold-lt);border-radius:2px;margin-bottom:1.1rem}
+    .exp-role{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--navy);margin-bottom:.35rem;line-height:1.3}
+    .exp-org{font-size:.74rem;font-weight:600;color:var(--muted);margin-bottom:1.2rem;text-transform:uppercase;letter-spacing:.07em}
+    .exp-pts{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+    .exp-pts li{font-size:.78rem;line-height:1.75;color:var(--muted);padding-left:1.1rem;position:relative}
+    .exp-pts li::before{content:'▸';position:absolute;left:0;color:var(--gold)}
+
+    /* PROJECTS */
+    #projects{background:var(--white)}
+    .proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+    .proj-card{border:1px solid var(--border);background:var(--bg);border-radius:3px;overflow:hidden;transition:box-shadow .3s,transform .3s}
+    .proj-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-5px)}
+    .proj-top{padding:1.6rem 1.6rem 0;display:flex;justify-content:space-between;align-items:flex-start}
+    .proj-num{font-family:'Playfair Display',serif;font-size:2.3rem;font-weight:700;color:var(--border);line-height:1}
+    .proj-type{font-size:.6rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:.22rem .65rem;background:var(--gold-lt);color:var(--gold);border-radius:2px}
+    .proj-body{padding:.9rem 1.6rem 1.6rem}
+    .proj-title{font-family:'Playfair Display',serif;font-size:.98rem;font-weight:700;color:var(--navy);margin-bottom:.55rem;line-height:1.3}
+    .proj-desc{font-size:.76rem;line-height:1.75;color:var(--muted);margin-bottom:1.1rem}
+    .proj-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:1rem}
+    .ptag{font-size:.58rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:.2rem .5rem;border:1px solid var(--border);color:var(--muted);border-radius:2px}
+    .proj-lnk{display:inline-flex;align-items:center;gap:.35rem;font-size:.7rem;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.07em;transition:color .2s,gap .2s}
+    .proj-lnk:hover{color:var(--gold);gap:.6rem}
+
+    /* SKILLS */
+    #skills{background:var(--navy)}
+    #skills .sec-tag{color:var(--gold2)}
+    #skills .sec-tag::before{background:var(--gold2)}
+    #skills .sec-title{color:#fff}
+    #skills .sec-title em{color:var(--gold2)}
+    .sk-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4rem;margin-top:3rem}
+    .sk-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);padding:1.8rem;border-radius:3px;transition:background .3s,border-color .3s}
+    .sk-card:hover{background:rgba(255,255,255,.08);border-color:rgba(184,146,42,.45)}
+    .sk-icon{font-size:1.7rem;margin-bottom:.9rem}
+    .sk-title{font-size:.74rem;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:.1em;margin-bottom:1.1rem}
+    .sk-pills{display:flex;flex-wrap:wrap;gap:.4rem}
+    .sk-pill{font-size:.62rem;font-weight:500;letter-spacing:.04em;padding:.25rem .6rem;border:1px solid rgba(255,255,255,.13);color:rgba(255,255,255,.6);border-radius:2px;transition:border-color .2s,color .2s}
+    .sk-card:hover .sk-pill{border-color:rgba(184,146,42,.35);color:rgba(255,255,255,.85)}
+
+    /* LANGUAGES */
+    #languages{background:var(--bg)}
+    .lang-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;max-width:680px}
+    .lang-card{background:var(--white);border:1px solid var(--border);padding:2rem;border-radius:3px;text-align:center;transition:box-shadow .3s,transform .3s,border-color .3s}
+    .lang-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-4px)}
+    .lang-ring{width:68px;height:68px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;margin:0 auto .9rem;font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--navy)}
+    .lang-card.native .lang-ring{border-color:var(--gold);background:var(--gold-lt);color:var(--gold)}
+    .lang-name{font-size:.78rem;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.1em}
+    .lang-card.native .lang-name{color:var(--gold)}
+    .lang-lv{font-size:.65rem;color:var(--muted);margin-top:.25rem;text-transform:uppercase;letter-spacing:.07em}
+
+    /* CERTS */
+    #certs{background:var(--white)}
+    .certs-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+    .cert-card{background:var(--bg);border:1px solid var(--border);padding:1.8rem;border-radius:3px;display:flex;gap:1.1rem;align-items:flex-start;transition:box-shadow .3s,border-color .3s}
+    .cert-card:hover{box-shadow:var(--shadow);border-color:var(--gold)}
+    .cert-ico{width:42px;height:42px;flex-shrink:0;background:var(--gold-lt);border:1px solid rgba(184,146,42,.3);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+    .cert-title{font-size:.8rem;font-weight:700;color:var(--navy);line-height:1.4;margin-bottom:.25rem}
+    .cert-org{font-size:.66rem;color:var(--muted);text-transform:uppercase;letter-spacing:.07em}
+    .cert-yr{font-size:.62rem;color:var(--gold);font-weight:700;margin-top:.25rem}
+
+    /* CONTACT */
+    #contact{background:var(--navy);position:relative;overflow:hidden}
+    .ct-orb{position:absolute;right:-80px;bottom:-80px;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(184,146,42,.09),transparent 68%);pointer-events:none}
+    #contact .sec-tag{color:var(--gold2)}
+    #contact .sec-tag::before{background:var(--gold2)}
+    #contact .sec-title{color:#fff}
+    #contact .sec-title em{color:var(--gold2)}
+    .ct-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;position:relative;z-index:1}
+    .ct-sub{font-size:.88rem;line-height:1.85;color:rgba(255,255,255,.5);margin-bottom:2.2rem;max-width:370px}
+    .ct-links{display:flex;flex-direction:column;gap:.75rem}
+    .ct-link{display:flex;align-items:center;gap:.9rem;padding:.9rem 1.1rem;border:1px solid rgba(255,255,255,.1);border-radius:2px;color:rgba(255,255,255,.75);font-size:.76rem;transition:border-color .2s,transform .2s,color .2s}
+    .ct-link:hover{border-color:var(--gold);color:#fff;transform:translateX(5px)}
+    .ct-icon{font-size:.95rem;width:18px;text-align:center;color:var(--gold2);flex-shrink:0}
+    .cform{display:flex;flex-direction:column;gap:1rem}
+    .fg{display:flex;flex-direction:column;gap:.4rem}
+    .fg label{font-size:.62rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.45)}
+    .fg input,.fg textarea{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.11);color:rgba(255,255,255,.9);padding:.8rem 1rem;font-family:'Plus Jakarta Sans',sans-serif;font-size:.8rem;border-radius:2px;outline:none;resize:none;transition:border-color .2s}
+    .fg input::placeholder,.fg textarea::placeholder{color:rgba(255,255,255,.28)}
+    .fg input:focus,.fg textarea:focus{border-color:var(--gold)}
+    .fg textarea{height:108px}
+    .fg-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    .send-btn{display:flex;align-items:center;justify-content:center;gap:.5rem;padding:1rem 2rem;background:var(--gold);color:var(--navy);font-family:'Plus Jakarta Sans',sans-serif;font-size:.76rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border:none;cursor:pointer;border-radius:2px;transition:background .2s,transform .2s}
+    .send-btn:hover{background:var(--gold2);transform:translateY(-2px)}
+
+    /* FOOTER */
+    footer{background:var(--navy);padding:1.8rem 2rem;border-top:1px solid rgba(255,255,255,.07)}
+    .foot{max-width:1140px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;font-size:.7rem;color:rgba(255,255,255,.38)}
+    .foot span{color:var(--gold)}
+    .foot-lnks{display:flex;gap:1.5rem}
+    .foot-lnks a{color:rgba(255,255,255,.38);transition:color .2s}
+    .foot-lnks a:hover{color:var(--gold)}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+    /* RESPONSIVE */
+    @media(max-width:1024px){
+      .proj-grid{grid-template-columns:repeat(2,1fr)}
+      .sk-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:900px){
+      .about-grid,.exp-grid,.ct-grid{grid-template-columns:1fr;gap:2.5rem}
+    }
+    @media(max-width:768px){
+      section{padding:4rem 0}
+      .nav-links,.nav-cta{display:none}
+      .hamburger{display:flex}
+      .mobile-menu{display:flex}
+      .hero-inner{grid-template-columns:1fr;padding:3rem 1.5rem 3rem;gap:2.2rem}
+      .hero-photo{order:-1;display:flex;justify-content:center}
+      .photo-card{width:220px}
+      .photo-frame{width:220px}
+      .photo-frame img,.photo-placeholder{height:270px}
+      .photo-badge{position:static;margin-top:1rem;left:auto;bottom:auto}
+      .photo-deco-box{display:none}
+      .hero-stats{gap:1.5rem;flex-wrap:wrap}
+      .proj-grid{grid-template-columns:1fr}
+      .certs-row{grid-template-columns:1fr}
+      .lang-row{grid-template-columns:1fr;max-width:280px}
+      .fg-row{grid-template-columns:1fr}
+    }
+    @media(max-width:480px){
+      .hero-name{font-size:2.3rem}
+      .sk-grid{grid-template-columns:1fr}
+      .hero-btns{flex-direction:column}
+      .btn-navy,.btn-ghost{width:100%;justify-content:center}
+      .container{padding:0 1.2rem}
+      .hero-stats{gap:1.2rem}
+    }
+    @media (max-width: 768px) {
+  .foot {
+    flex-direction: column;   /* Stacks the copyright and links vertically */
+    text-align: center;       /* Centers the text inside the spans */
+    gap: 15px;                /* Adds space between the copyright and the link block */
+  }
+
+  .foot-lnks {
+    justify-content: center;  /* Centers the links horizontally */
+    flex-wrap: wrap;          /* Allows links to wrap if they are too long */
+  }
+}
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">Janan <span>Sabah</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="hamburger" id="ham" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mob">
+  <a href="#about"      onclick="closeMob()">About</a>
+  <a href="#experience" onclick="closeMob()">Experience</a>
+  <a href="#projects"   onclick="closeMob()">Projects</a>
+  <a href="#skills"     onclick="closeMob()">Skills</a>
+  <a href="#contact"    onclick="closeMob()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-orb"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <h1 class="hero-name">Janan<br/><span class="gold">Sabah</span> Ahmed</h1>
+      <div class="hero-pills">
+        <span class="pill">🔬 Physicist</span>
+        <span class="pill">💻 Web Developer</span>
+        <span class="pill">📊 Data Analyst</span>
+        <span class="pill">🔍 SEO Specialist</span>
       </div>
-    </section>
+      <p class="hero-desc">Multidisciplinary professional from Kurdistan, Iraq bridging scientific research, digital technology, and data-driven insights to deliver real-world impact.</p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn-navy">Get In Touch ↗</a>
+        <a href="#projects" class="btn-ghost">View Projects →</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="hstat-num">20+</div><div class="hstat-lbl">Research</div></div>
+        <div><div class="hstat-num">25+</div><div class="hstat-lbl">Web Projects</div></div>
+        <div><div class="hstat-num">3</div><div class="hstat-lbl">Languages</div></div>
+        <div><div class="hstat-num">2</div><div class="hstat-lbl">Certificates</div></div>
+      </div>
+    </div>
 
-      <!-- Download CV Section -->
-<section id="cv" class="cv-section">
-  <div class="container">
-   
-    <a href="file/cv janan.pdf" download class="cv-btn">
-      <i class="fas fa-download"></i> Download My CV
-    </a>
+    <!-- PHOTO SECTION -->
+    <div class="hero-photo">
+      <div class="photo-card">
+        <div class="photo-frame">
+          <div class="photo-placeholder">
+            <img src="images/janan.jpg" alt="Janan Sabah Ahmed"/>
+          </div>
+        </div>
+        <div class="photo-badge">
+          <div class="pb-title">B.Sc. Physics</div>
+          <div class="pb-sub">University of Duhok</div>
+        </div>
+        <div class="photo-deco-box"></div>
+      </div>
+    </div>
   </div>
 </section>
 
-   <section id="contact" class="contact">
+<!-- ABOUT -->
+<section id="about">
   <div class="container">
-    <h2 class="section-title">Get In Touch</h2>
-
-    <div class="contact-grid">
-
-      <!-- LinkedIn -->
-      <div class="contact-card fade-in">
-        <div class="contact-icon linkedin">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.22 8h4.56v16H.22V8zM8.34 8h4.37v2.2h.06c.61-1.16 2.1-2.38 4.32-2.38 4.62 0 5.47 3.04 5.47 6.99V24h-4.56v-6.56c0-1.56-.03-3.56-2.17-3.56-2.17 0-2.5 1.7-2.5 3.45V24H8.34V8z"/>
-          </svg>
+    <div class="about-grid">
+      <div class="reveal">
+        <div class="sec-tag">Who I Am</div>
+        <h2 class="sec-title" style="margin-bottom:1.4rem">A Dedicated <em>Professional</em></h2>
+        <div class="about-text">
+          <p>I am <strong>Janan Sabah Ahmed</strong>, a Physics graduate from the University of Duhok with a strong foundation in scientific research and a passion for digital technology and web development.</p>
+          <p>I have collaborated with <strong>UNICEF</strong> on impactful community research, built web platforms serving thousands of users, and worked to advance science education across the Kurdish region.</p>
+          <p>Fluent in Kurdish, Arabic, and English, I communicate effectively with diverse stakeholders and bring precision, accountability, and creative problem-solving to every engagement.</p>
         </div>
-        <div class="contact-info">
-          <h3 class="contact-title">LinkedIn</h3>
-          <p class="contact-detail">Janan Sabah</p>
-          <a href="https://www.linkedin.com/in/janan-sabah-8b6238299" target="_blank" class="project-link">
-            Connect →
-          </a>
+        <div class="info-table">
+          <div class="info-row"><span class="ik">Location</span><span class="iv">Zakho, Kurdistan Region, Iraq</span></div>
+          <div class="info-row"><span class="ik">Email</span><span class="iv">janansabah83@gmail.com</span></div>
+          <div class="info-row"><span class="ik">Phone</span><span class="iv">+964 750 205 2802</span></div>
+          <div class="info-row"><span class="ik">Degree</span><span class="iv">B.Sc. Physics · University of Duhok · 2025</span></div>
+          <div class="info-row"><span class="ik">Portfolio</span><span class="iv">janansabah.github.io/PORTFOLIO/</span></div>
         </div>
       </div>
-
-      <!-- Signal -->
-      <div class="contact-card fade-in" style="animation-delay:0.1s">
-        <div class="contact-icon signal">
-          <svg viewBox="0 0 24 24">
-            <path d="M12 2C6.48 2 2 6.14 2 11.25c0 2.93 1.56 5.54 4 7.23V22l3.45-1.9c.8.22 1.65.34 2.55.34 5.52 0 10-4.14 10-9.25S17.52 2 12 2z"/>
-          </svg>
-        </div>
-        <div class="contact-info">
-          <h3 class="contact-title">Signal</h3>
-          <p class="contact-detail">@Janan.10</p>
-          <a href="https://signal.me/#eu/bb3F7mowtOaXKGCikUH9yxgLS9irKW2aMrLUGljv55uYyLArg3ZPw6vDNenOyd2k" target="_blank" class="project-link">
-            Message →
-          </a>
+      <div class="reveal d2">
+        <div class="sec-tag">Proficiency</div>
+        <h2 class="sec-title" style="margin-bottom:1.4rem">Core <em>Strengths</em></h2>
+        <div class="bars">
+          <div><div class="bar-head"><span class="bn">Scientific Research</span><span class="bp">90%</span></div><div class="bar-track"><div class="bar-fill" data-w="90"></div></div></div>
+          <div><div class="bar-head"><span class="bn">Web Development</span><span class="bp">85%</span></div><div class="bar-track"><div class="bar-fill" data-w="85"></div></div></div>
+          <div><div class="bar-head"><span class="bn">Data Analysis</span><span class="bp">80%</span></div><div class="bar-track"><div class="bar-fill" data-w="80"></div></div></div>
+          <div><div class="bar-head"><span class="bn">SEO & Digital Marketing</span><span class="bp">78%</span></div><div class="bar-track"><div class="bar-fill" data-w="78"></div></div></div>
+          <div><div class="bar-head"><span class="bn">Field Coordination</span><span class="bp">85%</span></div><div class="bar-track"><div class="bar-fill" data-w="85"></div></div></div>
+          <div><div class="bar-head"><span class="bn">Technical Writing</span><span class="bp">82%</span></div><div class="bar-track"><div class="bar-fill" data-w="82"></div></div></div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
 
-      <!-- WhatsApp -->
-      <div class="contact-card fade-in" style="animation-delay:0.2s">
-        <div class="contact-icon whatsapp">
-          <svg viewBox="0 0 24 24">
-            <path d="M12 2C6.48 2 2 6.14 2 11.25c0 1.98.62 3.82 1.69 5.36L2 22l5.7-1.63c1.41.78 3.04 1.22 4.3 1.22 5.52 0 10-4.14 10-9.25S17.52 2 12 2z"/>
-          </svg>
-        </div>
-        <div class="contact-info">
-          <h3 class="contact-title">WhatsApp</h3>
-          <p class="contact-detail">Janan Sabah</p>
-          <a href="https://wa.me/message/C3GUMMYBPMRQD1" target="_blank" class="project-link">
-            Chat →
-          </a>
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:2.8rem">
+      <div class="sec-tag">Career</div>
+      <h2 class="sec-title">Professional <em>Experience</em></h2>
+    </div>
+    <div class="exp-grid">
+      <div class="exp-card reveal">
+        <div class="exp-period">2024 — 2025</div>
+        <div class="exp-role">Field Coordinator & Data Analyst</div>
+        <div class="exp-org">PAR UoD–UNICEF Program · Duhok, Iraq</div>
+        <ul class="exp-pts">
+          <li>Coordinated field research on how household water storage tanks affect water quality and public health outcomes across communities.</li>
+          <li>Collected and validated survey data from residents, ensuring accuracy and methodological consistency throughout the study.</li>
+          <li>Contributed to UNICEF's Participatory Action Research program, supporting evidence-based community health recommendations.</li>
+        </ul>
+      </div>
+      <div class="exp-card reveal d2">
+        <div class="exp-period">2021 — 2025</div>
+        <div class="exp-role">Research Project Editor</div>
+        <div class="exp-org">University of Duhok · Duhok, Iraq</div>
+        <ul class="exp-pts">
+          <li>Reviewed and edited undergraduate academic projects, verifying references and ensuring full compliance with institutional standards.</li>
+          <li>Analyzed project data sets to maintain methodological rigor and consistency across multiple research outputs.</li>
+          <li>Designed and prepared scientific posters and presentations for student research conferences and academic events.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:2.8rem">
+      <div class="sec-tag">Portfolio</div>
+      <h2 class="sec-title">Featured <em>Projects</em></h2>
+    </div>
+    <div class="proj-grid">
+      <div class="proj-card reveal">
+        <div class="proj-top"><div class="proj-num">01</div><div class="proj-type">Research</div></div>
+        <div class="proj-body">
+          <div class="proj-title">Medical Applications of CT-Scan X-rays</div>
+          <p class="proj-desc">Graduation research exploring CT imaging technology, analyzing clinical applications and diagnostic utility of computed tomography in medicine.</p>
+          <div class="proj-tags"><span class="ptag">Physics</span><span class="ptag">Medical Imaging</span><span class="ptag">Research</span></div>
         </div>
       </div>
-
-      <!-- Email -->
-      <div class="contact-card fade-in" style="animation-delay:0.3s">
-        <div class="contact-icon email">
-          <svg viewBox="0 0 24 24">
-            <path d="M2 4h20v16H2V4zm10 7L4 6v12h16V6l-8 5z"/>
-          </svg>
-        </div>
-        <div class="contact-info">
-          <h3 class="contact-title">Email</h3>
-          <p class="contact-detail">janansabah83@gmail.com</p>
-          <a href="mailto:janansabah83@gmail.com" class="project-link">
-            Email Me →
-          </a>
+      <div class="proj-card reveal d1">
+        <div class="proj-top"><div class="proj-num">02</div><div class="proj-type">UNICEF</div></div>
+        <div class="proj-body">
+          <div class="proj-title">Water Storage & Public Health Study</div>
+          <p class="proj-desc">PAR-UNICEF research on household water storage tanks and their impact on water quality and community health in the Kurdistan Region of Iraq.</p>
+          <div class="proj-tags"><span class="ptag">Data Analysis</span><span class="ptag">UNICEF</span><span class="ptag">Field Research</span></div>
         </div>
       </div>
+      <div class="proj-card reveal d2">
+        <div class="proj-top"><div class="proj-num">03</div><div class="proj-type">Web Dev</div></div>
+        <div class="proj-body">
+          <div class="proj-title">Kurd Science Platform</div>
+          <p class="proj-desc">Science education platform for the Kurdish community, delivering accessible scientific content and academic resources in the Kurdish language.</p>
+          <div class="proj-tags"><span class="ptag">HTML</span><span class="ptag">CSS</span><span class="ptag">JS</span><span class="ptag">SEO</span></div>
+          <a href="https://kurdscience.com" target="_blank" class="proj-lnk">Visit Site →</a>
+        </div>
+      </div>
+      <div class="proj-card reveal">
+        <div class="proj-top"><div class="proj-num">04</div><div class="proj-type">Web Dev</div></div>
+        <div class="proj-body">
+          <div class="proj-title">UoD-PAR Youth Portal</div>
+          <p class="proj-desc">Official web platform for the University of Duhok PAR Youth program, showcasing research outcomes and enabling community engagement.</p>
+          <div class="proj-tags"><span class="ptag">HTML</span><span class="ptag">CSS</span><span class="ptag">GitHub Pages</span></div>
+          <a href="https://uod-par.github.io/Youth/" target="_blank" class="proj-lnk">Visit Site →</a>
+        </div>
+      </div>
+      <div class="proj-card reveal d1">
+        <div class="proj-top"><div class="proj-num">05</div><div class="proj-type">Web Dev</div></div>
+        <div class="proj-body">
+          <div class="proj-title">Physics Students Hub</div>
+          <p class="proj-desc">Educational platform designed for physics students, providing notes, resources, and academic content to support scientific learning and discovery.</p>
+          <div class="proj-tags"><span class="ptag">HTML</span><span class="ptag">CSS</span><span class="ptag">JavaScript</span></div>
+          <a href="https://physicstu.github.io/Physicst/" target="_blank" class="proj-lnk">Visit Site →</a>
+        </div>
+      </div>
+      <div class="proj-card reveal d2">
+        <div class="proj-top"><div class="proj-num">06</div><div class="proj-type">Design</div></div>
+        <div class="proj-body">
+          <div class="proj-title">Personal Portfolio Websites</div>
+          <p class="proj-desc">Designed and developed multiple personal portfolio sites for clients including raghdarte.github.io/raghdaaa/ and warvin-saleh.github.io/Warven-salh/.</p>
+          <div class="proj-tags"><span class="ptag">HTML</span><span class="ptag">CSS</span><span class="ptag">JS</span><span class="ptag">UI Design</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="reveal">
+      <div class="sec-tag">Expertise</div>
+      <h2 class="sec-title">Technical <em>Skills</em></h2>
+    </div>
+    <div class="sk-grid">
+      <div class="sk-card reveal">
+        <div class="sk-icon">⌨️</div>
+        <div class="sk-title">Development</div>
+        <div class="sk-pills">
+          <span class="sk-pill">HTML5</span><span class="sk-pill">CSS3</span><span class="sk-pill">JavaScript</span><span class="sk-pill">PHP</span><span class="sk-pill">MySQL</span><span class="sk-pill">Bootstrap</span><span class="sk-pill">Git</span><span class="sk-pill">GitHub</span><span class="sk-pill">Firebase</span>
+        </div>
+      </div>
+      <div class="sk-card reveal d1">
+        <div class="sk-icon">📊</div>
+        <div class="sk-title">Data & Office</div>
+        <div class="sk-pills">
+          <span class="sk-pill">MS Office</span><span class="sk-pill">Google Workspace</span><span class="sk-pill">Data Analysis</span><span class="sk-pill">Reports</span><span class="sk-pill">Presentations</span><span class="sk-pill">Poster Design</span>
+        </div>
+      </div>
+      <div class="sk-card reveal d2">
+        <div class="sk-icon">🔍</div>
+        <div class="sk-title">SEO & Marketing</div>
+        <div class="sk-pills">
+          <span class="sk-pill">Technical SEO</span><span class="sk-pill">On-Page SEO</span><span class="sk-pill">Off-Page SEO</span><span class="sk-pill">Keyword Research</span><span class="sk-pill">Search Console</span><span class="sk-pill">Ahrefs</span><span class="sk-pill">Yoast</span>
+        </div>
+      </div>
+      <div class="sk-card reveal d3">
+        <div class="sk-icon">🌐</div>
+        <div class="sk-title">Translation</div>
+        <div class="sk-pills">
+          <span class="sk-pill">Kurdish (Native)</span><span class="sk-pill">Arabic</span><span class="sk-pill">English</span><span class="sk-pill">Translation</span><span class="sk-pill">Localization</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 
-  
 
-    <!-- Footer -->
-    <footer>
-      <div class="container">
-        <p class="copyright">&copy; 2024 Janan Sabah. All rights reserved.</p>
+<!-- CERTS -->
+<section id="certs">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:2.4rem">
+      <div class="sec-tag">Recognition</div>
+      <h2 class="sec-title">Certificates & <em>Achievements</em></h2>
+    </div>
+    <div class="certs-row">
+      <div class="cert-card reveal"><div class="cert-ico">🏆</div><div><div class="cert-title">UNICEF Participatory Action Research</div><div class="cert-org">UNICEF × University of Duhok</div><div class="cert-yr">2024 — 2025</div></div></div>
+      <div class="cert-card reveal d1"><div class="cert-ico">📄</div><div><div class="cert-title">CV Workshop Certificate</div><div class="cert-org">Professional Development Program</div><div class="cert-yr">2024 — 2025</div></div></div>
+      <div class="cert-card reveal d2"><div class="cert-ico">🎓</div><div><div class="cert-title">Bachelor of Science in Physics</div><div class="cert-org">University of Duhok, Iraq</div><div class="cert-yr">2021 — 2025</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="ct-orb"></div>
+  <div class="container">
+    <div class="reveal" style="margin-bottom:2.8rem">
+      <div class="sec-tag">Let's Connect</div>
+      <h2 class="sec-title">Get In <em>Touch</em></h2>
+    </div>
+    <div class="ct-grid">
+      <div class="reveal">
+        <p class="ct-sub">Whether you have a project in mind, a research collaboration, or simply want to connect — I would be happy to hear from you. Let's build something meaningful together.</p>
+        <div class="ct-links">
+          <a href="mailto:janansabah83@gmail.com" class="ct-link"><span class="ct-icon">✉</span> janansabah83@gmail.com</a>
+          <a href="tel:+9647502052802" class="ct-link"><span class="ct-icon">📞</span> +964 750 205 2802</a>
+          <a href="https://janansabah.github.io/PORTFOLIO/" target="_blank" class="ct-link"><span class="ct-icon">🌐</span> janansabah.github.io/PORTFOLIO/</a>
+          <span class="ct-link"><span class="ct-icon">📍</span> Zakho, Kurdistan Region, Iraq</span>
+        </div>
       </div>
-    </footer>
+     
+    </div>
+  </div>
+</section>
 
-    <script>
-      // Smooth scrolling for navigation links
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-          e.preventDefault();
-          document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-          });
-        });
-      });
+<!-- FOOTER -->
+<footer>
+  <div class="foot">
+    <span>© 2026 <span>Janan Sabah </span> .  All Rights Reserved.</span>
+    <div class="foot-lnks">
+      <a href="#about">About</a><a href="#experience">Experience</a><a href="#projects">Projects</a><a href="#contact">Contact</a>
+    </div>
+  </div>
+</footer>
 
-      // Animation on scroll
-      const fadeElements = document.querySelectorAll('.fade-in');
-      
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.style.opacity = 1;
-            entry.target.style.transform = 'translateY(0)';
-          }
-        });
-      }, {
-        threshold: 0.1
-      });
-      
-      fadeElements.forEach(element => {
-        element.style.opacity = 0;
-        element.style.transform = 'translateY(20px)';
-        element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(element);
-      });
-    </script>
-  </body>
+<script>
+/* Hamburger */
+const ham = document.getElementById('ham');
+const mob = document.getElementById('mob');
+ham.addEventListener('click', () => {
+  const open = ham.classList.toggle('open');
+  mob.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+function closeMob() {
+  ham.classList.remove('open');
+  mob.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* Navbar */
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+  // Active link
+  let cur = '';
+  document.querySelectorAll('section[id]').forEach(s => {
+    if (window.scrollY >= s.offsetTop - 130) cur = s.id;
+  });
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
+});
+
+/* Reveal + skill bars */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      e.target.querySelectorAll('.bar-fill').forEach(b => b.style.width = b.dataset.w + '%');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* Bar fill fallback */
+new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.style.width = e.target.dataset.w + '%'; });
+}, { threshold: 0.3 }).observe !== undefined &&
+document.querySelectorAll('.bar-fill').forEach(b => {
+  new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.style.width = e.target.dataset.w + '%'; });
+  }, { threshold: 0.3 }).observe(b);
+});
+
+/* Form */
+function sendMsg(btn) {
+  btn.textContent = '✓ Sent!';
+  btn.style.background = '#2d7a4a';
+  btn.style.color = '#fff';
+  setTimeout(() => { btn.textContent = 'Send Message ↗'; btn.style.background = ''; btn.style.color = ''; }, 3000);
+}
+</script>
+</body>
 </html>
